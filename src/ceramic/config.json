@@ -1,6 +1,6 @@
 {
-    "mode": "ltlf",
-    "size": "xsmall",
+    "mode": "automata",
+    "size": "large",
     "gamma": 0.9,
-    "serialize": false
+    "serialize": true
 }
