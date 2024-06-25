@@ -1,0 +1,14 @@
+.idea
+__pycache__
+.ipynb_checkpoints
+.bash_history
+.sudo_as_admin_successful
+nohup.out
+experimental_results
+experimental_results_debug
+original_experimental_results
+manip.py
+*.pkl
+*.dot
+*.svg
+extract_lines.py

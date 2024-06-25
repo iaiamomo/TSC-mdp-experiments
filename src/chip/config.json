@@ -1,0 +1,6 @@
+{
+    "mode": "automata",
+    "size": "large",
+    "gamma": 0.9,
+    "serialize": false
+}

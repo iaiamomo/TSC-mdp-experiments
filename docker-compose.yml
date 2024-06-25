@@ -1,0 +1,20 @@
+version: "0.1"
+
+services:
+  redis:
+    image: "redis/redis-stack"
+    ports:
+      - 6379:6379
+
+  mdpapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/home/default/MDP-Planner-Chip-Production
+    command: bash
+    depends_on:
+      - redis
+    links:
+      - redis
+    tty: true
