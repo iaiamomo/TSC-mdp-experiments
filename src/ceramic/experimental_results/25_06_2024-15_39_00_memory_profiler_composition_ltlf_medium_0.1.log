@@ -1,0 +1,10 @@
+Filename: /home/default/MDP-Planner-Chip-Production/src/ceramic/main.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    40    135.5 MiB    135.5 MiB           1   @profile(stream=open(fp_compMDP, "w+"))
+    41                                         def execute_composition_ltlf(declare_automaton, services):
+    42    327.9 MiB    192.4 MiB           1       mdp = comp_mdp(declare_automaton, services, gamma=gamma)
+    43    327.9 MiB      0.0 MiB           1       return mdp
+
+

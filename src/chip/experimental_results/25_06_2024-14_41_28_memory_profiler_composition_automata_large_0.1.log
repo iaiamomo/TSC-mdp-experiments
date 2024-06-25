@@ -1,0 +1,10 @@
+Filename: /home/default/MDP-Planner-Chip-Production/src/chip/main.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    34    133.9 MiB    133.9 MiB           1   @profile(stream=open(fp_compMDP, "w+"))
+    35                                         def execute_composition_automata(target, services):
+    36    421.2 MiB    287.4 MiB           1       mdp = composition_mdp(target, *services, gamma=gamma)
+    37    421.2 MiB      0.0 MiB           1       return mdp
+
+
