@@ -224,318 +224,162 @@ def build_complex_breakable_service(service_name: str, action_name: str, broken_
     return build_service_from_transitions(transitions, initial_state, final_states)  # type: ignore
 
 
-def process_services(mode, dimension):
+def process_services(dimension):
     '''Builds all the services for the given dimension of the problem.'''
-    if mode == "automata":
-        if dimension == "xsmall": # 14 services
-            all_services = [
-                # raw materials -> 5
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
-                # manufacturing
-                build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD)
-            ]
-        elif dimension == "small": # 21
-            all_services = [
-                # raw materials -> 9
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_CHINA, {PICK_DESIGN}, CHINA_REWARD),
-
-                build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_BRAZIL, {PICK_SILICON}, BRAZIL_REWARD),
-                
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_CHILE, {PICK_IMPURITIES}, CHILE_REWARD),
-                
-                build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_CANADA, {PICK_RESIST}, CANADA_REWARD),
-                
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
-                # manufacturing -> 12
-                build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PHOTOLITOGRAPHY2_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(ION_IMPLANTATION2_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING2_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD)
-            ]
-        elif dimension == "medium": # 28
-            all_services = [
-                # raw materials -> 14
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_UK, {PICK_DESIGN}, UK_REWARD),
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_CHINA, {PICK_DESIGN}, CHINA_REWARD),
-
-                build_generic_service_one_state(SILICON_SERVICE_NAME_BRAZIL, {PICK_SILICON}, BRAZIL_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_RUSSIA, {PICK_SILICON}, RUSSIA_REWARD),
-
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_CHILE, {PICK_IMPURITIES}, CHILE_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_BRAZIL, {PICK_IMPURITIES}, BRAZIL_REWARD),
-
-                build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_BELGIUM, {PICK_RESIST}, BELGIUM_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_AUSTRIA, {PICK_RESIST}, AUSTRIA_REWARD),
-
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_CANADA, {PICK_CHEMICALS}, CANADA_REWARD),
-                # manufacturing -> 14
-                build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PHOTOLITOGRAPHY2_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(ION_IMPLANTATION2_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(TESTING2_SERVICE_NAME, {TESTING}, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_complex_breakable_service(DICING2_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING2_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD)
-            ]
-        elif dimension == "large": # 35
-            all_services = [
-                # raw materials -> 16
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_UK, {PICK_DESIGN}, UK_REWARD),
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_CHINA, {PICK_DESIGN}, CHINA_REWARD),
-
-                build_generic_service_one_state(SILICON_SERVICE_NAME_BRAZIL, {PICK_SILICON}, BRAZIL_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_CHINA, {PICK_SILICON}, CHINA_REWARD), #
-                build_generic_service_one_state(SILICON_SERVICE_NAME_RUSSIA, {PICK_SILICON}, RUSSIA_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_CHILE, {PICK_IMPURITIES}, CHILE_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_BRAZIL, {PICK_IMPURITIES}, BRAZIL_REWARD),
-
-                build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_BELGIUM, {PICK_RESIST}, BELGIUM_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_AUSTRIA, {PICK_RESIST}, AUSTRIA_REWARD),
-
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_CANADA, {PICK_CHEMICALS}, CANADA_REWARD),
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_CHINA, {PICK_CHEMICALS}, CHINA_REWARD), #
-                # manufacturing -> 19
-                build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PHOTOLITOGRAPHY2_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(ION_IMPLANTATION2_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(TESTING2_SERVICE_NAME, {TESTING}, HIGH_DEFAULT_USA_REWARD),
-                build_generic_service_one_state(TESTING3_SERVICE_NAME, {TESTING}, HIGH_DEFAULT_USA_REWARD), #
-
-                build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(QUALITY2_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD), #
-
-                build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_complex_breakable_service(DICING2_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING2_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING3_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD), #
-
-                build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING_COOLING2_SERVICE_NAME, {PACKAGING_COOLING}, HIGH_DEFAULT_USA_REWARD), #
-                build_generic_service_one_state(PACKAGING_COOLING3_SERVICE_NAME, {PACKAGING_COOLING}, HIGH_DEFAULT_USA_REWARD) #
-            ]
-    elif mode == "ltlf":
-        if dimension == "xsmall": # 14 services
-            all_services = [
-                # raw materials -> 5
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
-                # manufacturing
-                build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD)
-            ]
-        elif dimension == "small": # 21
-            all_services = [
-                # raw materials -> 9
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_CHINA, {PICK_DESIGN}, CHINA_REWARD),
-
-                build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_BRAZIL, {PICK_SILICON}, BRAZIL_REWARD),
-                
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_CHILE, {PICK_IMPURITIES}, CHILE_REWARD),
-                
-                build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_CANADA, {PICK_RESIST}, CANADA_REWARD),
-                
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
-                # manufacturing -> 12
-                build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PHOTOLITOGRAPHY2_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(ION_IMPLANTATION2_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING2_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD)
-            ]
-        elif dimension == "medium": # 28
-            all_services = [
-                # raw materials -> 14
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_UK, {PICK_DESIGN}, UK_REWARD),
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_CHINA, {PICK_DESIGN}, CHINA_REWARD),
-
-                build_generic_service_one_state(SILICON_SERVICE_NAME_BRAZIL, {PICK_SILICON}, BRAZIL_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_RUSSIA, {PICK_SILICON}, RUSSIA_REWARD),
-
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_CHILE, {PICK_IMPURITIES}, CHILE_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_BRAZIL, {PICK_IMPURITIES}, BRAZIL_REWARD),
-
-                build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_BELGIUM, {PICK_RESIST}, BELGIUM_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_AUSTRIA, {PICK_RESIST}, AUSTRIA_REWARD),
-
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_CANADA, {PICK_CHEMICALS}, CANADA_REWARD),
-                # manufacturing -> 14
-                build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PHOTOLITOGRAPHY2_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(ION_IMPLANTATION2_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(TESTING2_SERVICE_NAME, {TESTING}, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_complex_breakable_service(DICING2_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING2_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD)
-            ]
-        elif dimension == "large": # 35
-            all_services = [
-                # raw materials -> 16
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_UK, {PICK_DESIGN}, UK_REWARD),
-                build_generic_service_one_state(DESIGN_SERVICE_NAME_CHINA, {PICK_DESIGN}, CHINA_REWARD),
-
-                build_generic_service_one_state(SILICON_SERVICE_NAME_BRAZIL, {PICK_SILICON}, BRAZIL_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_CHINA, {PICK_SILICON}, CHINA_REWARD), #
-                build_generic_service_one_state(SILICON_SERVICE_NAME_RUSSIA, {PICK_SILICON}, RUSSIA_REWARD),
-                build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_CHILE, {PICK_IMPURITIES}, CHILE_REWARD),
-                build_generic_service_one_state(IMPURITIES_SERVICE_NAME_BRAZIL, {PICK_IMPURITIES}, BRAZIL_REWARD),
-
-                build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_BELGIUM, {PICK_RESIST}, BELGIUM_REWARD),
-                build_generic_service_one_state(RESIST_SERVICE_NAME_AUSTRIA, {PICK_RESIST}, AUSTRIA_REWARD),
-
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_CANADA, {PICK_CHEMICALS}, CANADA_REWARD),
-                build_generic_service_one_state(CHEMICALS_SERVICE_NAME_CHINA, {PICK_CHEMICALS}, CHINA_REWARD), #
-                # manufacturing -> 19
-                build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PHOTOLITOGRAPHY2_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(ION_IMPLANTATION2_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(TESTING2_SERVICE_NAME, {TESTING}, HIGH_DEFAULT_USA_REWARD),
-                build_generic_service_one_state(TESTING3_SERVICE_NAME, {TESTING}, HIGH_DEFAULT_USA_REWARD), #
-
-                build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-
-                build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(QUALITY2_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD), #
-
-                build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_complex_breakable_service(DICING2_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-
-                build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING2_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING3_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD), #
-
-                build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PACKAGING_COOLING2_SERVICE_NAME, {PACKAGING_COOLING}, HIGH_DEFAULT_USA_REWARD), #
-                build_generic_service_one_state(PACKAGING_COOLING3_SERVICE_NAME, {PACKAGING_COOLING}, HIGH_DEFAULT_USA_REWARD) #
-            ]
+    if dimension == "xsmall": # 14 services
+        all_services = [
+            # raw materials -> 5
+            build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
+            # manufacturing
+            build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD)
+        ]
+    elif dimension == "small": # 21
+        all_services = [
+            # raw materials -> 9
+            build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(DESIGN_SERVICE_NAME_CHINA, {PICK_DESIGN}, CHINA_REWARD),
+
+            build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(SILICON_SERVICE_NAME_BRAZIL, {PICK_SILICON}, BRAZIL_REWARD),
+            
+            build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(IMPURITIES_SERVICE_NAME_CHILE, {PICK_IMPURITIES}, CHILE_REWARD),
+            
+            build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(RESIST_SERVICE_NAME_CANADA, {PICK_RESIST}, CANADA_REWARD),
+            
+            build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
+            # manufacturing -> 12
+            build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+
+            build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(PHOTOLITOGRAPHY2_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
+
+            build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(ION_IMPLANTATION2_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
+
+            build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
+
+            build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+
+            build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+
+            build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+
+            build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(PACKAGING2_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD),
+
+            build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD)
+        ]
+    elif dimension == "medium": # 28
+        all_services = [
+            # raw materials -> 14
+            build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(DESIGN_SERVICE_NAME_UK, {PICK_DESIGN}, UK_REWARD),
+            build_generic_service_one_state(DESIGN_SERVICE_NAME_CHINA, {PICK_DESIGN}, CHINA_REWARD),
+
+            build_generic_service_one_state(SILICON_SERVICE_NAME_BRAZIL, {PICK_SILICON}, BRAZIL_REWARD),
+            build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(SILICON_SERVICE_NAME_RUSSIA, {PICK_SILICON}, RUSSIA_REWARD),
+
+            build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(IMPURITIES_SERVICE_NAME_CHILE, {PICK_IMPURITIES}, CHILE_REWARD),
+            build_generic_service_one_state(IMPURITIES_SERVICE_NAME_BRAZIL, {PICK_IMPURITIES}, BRAZIL_REWARD),
+
+            build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(RESIST_SERVICE_NAME_BELGIUM, {PICK_RESIST}, BELGIUM_REWARD),
+            build_generic_service_one_state(RESIST_SERVICE_NAME_AUSTRIA, {PICK_RESIST}, AUSTRIA_REWARD),
+
+            build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(CHEMICALS_SERVICE_NAME_CANADA, {PICK_CHEMICALS}, CANADA_REWARD),
+            # manufacturing -> 14
+            build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+
+            build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(PHOTOLITOGRAPHY2_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
+
+            build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(ION_IMPLANTATION2_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
+
+            build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(TESTING2_SERVICE_NAME, {TESTING}, HIGH_DEFAULT_USA_REWARD),
+
+            build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+
+            build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+
+            build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_complex_breakable_service(DICING2_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
+
+            build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(PACKAGING2_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD),
+
+            build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD)
+        ]
+    elif dimension == "large": # 35
+        all_services = [
+            # raw materials -> 16
+            build_generic_service_one_state(DESIGN_SERVICE_NAME_USA, {PICK_DESIGN}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(DESIGN_SERVICE_NAME_UK, {PICK_DESIGN}, UK_REWARD),
+            build_generic_service_one_state(DESIGN_SERVICE_NAME_CHINA, {PICK_DESIGN}, CHINA_REWARD),
+
+            build_generic_service_one_state(SILICON_SERVICE_NAME_BRAZIL, {PICK_SILICON}, BRAZIL_REWARD),
+            build_generic_service_one_state(SILICON_SERVICE_NAME_CHINA, {PICK_SILICON}, CHINA_REWARD), #
+            build_generic_service_one_state(SILICON_SERVICE_NAME_RUSSIA, {PICK_SILICON}, RUSSIA_REWARD),
+            build_generic_service_one_state(SILICON_SERVICE_NAME_USA, {PICK_SILICON}, DEFAULT_USA_REWARD),
+
+            build_generic_service_one_state(IMPURITIES_SERVICE_NAME_USA, {PICK_IMPURITIES}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(IMPURITIES_SERVICE_NAME_CHILE, {PICK_IMPURITIES}, CHILE_REWARD),
+            build_generic_service_one_state(IMPURITIES_SERVICE_NAME_BRAZIL, {PICK_IMPURITIES}, BRAZIL_REWARD),
+
+            build_generic_service_one_state(RESIST_SERVICE_NAME_USA, {PICK_RESIST}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(RESIST_SERVICE_NAME_BELGIUM, {PICK_RESIST}, BELGIUM_REWARD),
+            build_generic_service_one_state(RESIST_SERVICE_NAME_AUSTRIA, {PICK_RESIST}, AUSTRIA_REWARD),
+
+            build_generic_service_one_state(CHEMICALS_SERVICE_NAME_USA, {PICK_CHEMICALS}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(CHEMICALS_SERVICE_NAME_CANADA, {PICK_CHEMICALS}, CANADA_REWARD),
+            build_generic_service_one_state(CHEMICALS_SERVICE_NAME_CHINA, {PICK_CHEMICALS}, CHINA_REWARD), #
+            # manufacturing -> 19
+            build_complex_breakable_service(MASK_CREATION1_SERVICE_NAME, MASK_CREATION, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+
+            build_generic_breakable_service(PHOTOLITOGRAPHY1_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(PHOTOLITOGRAPHY2_SERVICE_NAME, PHOTOLITOGRAPHY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
+
+            build_generic_breakable_service(ION_IMPLANTATION1_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(ION_IMPLANTATION2_SERVICE_NAME, ION_IMPLANTATION, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
+
+            build_generic_service_one_state(TESTING1_SERVICE_NAME, {TESTING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(TESTING2_SERVICE_NAME, {TESTING}, HIGH_DEFAULT_USA_REWARD),
+            build_generic_service_one_state(TESTING3_SERVICE_NAME, {TESTING}, HIGH_DEFAULT_USA_REWARD), #
+
+            build_generic_breakable_service(SMART_TESTING1_SERVICE_NAME, SMART_TESTING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+
+            build_generic_breakable_service(QUALITY1_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(QUALITY2_SERVICE_NAME, QUALITY, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD), #
+
+            build_complex_breakable_service(DICING1_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_complex_breakable_service(DICING2_SERVICE_NAME, DICING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
+
+            build_generic_service_one_state(PACKAGING1_SERVICE_NAME, {PACKAGING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(PACKAGING2_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD),
+            build_generic_service_one_state(PACKAGING3_SERVICE_NAME, {PACKAGING}, HIGH_DEFAULT_USA_REWARD), #
+
+            build_generic_service_one_state(PACKAGING_COOLING1_SERVICE_NAME, {PACKAGING_COOLING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(PACKAGING_COOLING2_SERVICE_NAME, {PACKAGING_COOLING}, HIGH_DEFAULT_USA_REWARD), #
+            build_generic_service_one_state(PACKAGING_COOLING3_SERVICE_NAME, {PACKAGING_COOLING}, HIGH_DEFAULT_USA_REWARD) #
+        ]
     return all_services
 
 

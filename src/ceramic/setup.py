@@ -199,202 +199,104 @@ def build_complex_breakable_service(service_name: str, action_name: str, broken_
 
 
 
-def process_services(mode, dimension):
+def process_services(dimension):
     '''Builds all the services for the given dimension of the problem.'''
-    if mode == "automata":
-        if dimension == "xsmall": # 8 services
-            all_services = [
-                build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
-                
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
-                
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
-            ]
-        elif dimension == "small": # 12
-            all_services = [
-                build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-1),
-                
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-1),
-                
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-1),
-            ]
-        elif dimension == "medium": # 16
-            all_services = [
-                build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-1),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-2),
-                
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-1),
-                
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-1),
-                build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-2),
-            ]
-        elif dimension == "large": # 20
-            all_services = [
-                build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-1),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-2),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-3),
-                
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-                
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-2),
-                
-                build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-1),
-                build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-2),
-                
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-1),
-                build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-2),
-            ]
-    elif mode == "ltlf":
-        if dimension == "xsmall": # 8 services
-            all_services = [
-                build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
-                
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
-                
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
-            ]
-        elif dimension == "small": # 12
-            all_services = [
-                build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-1),
-                
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-1),
-                
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-1),
-            ]
-        elif dimension == "medium": # 16
-            all_services = [
-                build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-1),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-2),
-                
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-1),
-                
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-1),
-                build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-2),
-            ]
-        elif dimension == "large": # 20
-            all_services = [
-                build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-1),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-2),
-                build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-3),
-                
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
-                
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-2),
-                
-                build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-1),
-                build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-2),
-                
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
-                
-                build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
-                
-                build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
-                build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-1),
-                build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-2),
-            ]
+    if dimension == "xsmall": # 8 services
+        all_services = [
+            build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
+            
+            build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            
+            build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            
+            build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            
+            build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
+            
+            build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            
+            build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            
+            build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
+        ]
+    elif dimension == "small": # 12
+        all_services = [
+            build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-1),
+            
+            build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            
+            build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
+            
+            build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            
+            build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-1),
+            
+            build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
+            
+            build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            
+            build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-1),
+        ]
+    elif dimension == "medium": # 16
+        all_services = [
+            build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-1),
+            build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-2),
+            
+            build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
+            
+            build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
+            
+            build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
+            
+            build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-1),
+            
+            build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
+            
+            build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            
+            build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-1),
+            build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-2),
+        ]
+    elif dimension == "large": # 20
+        all_services = [
+            build_generic_service_one_state(PROVISION1_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-1),
+            build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-2),
+            build_generic_service_one_state(PROVISION2_SERVICE_NAME_USA, {PROVISIONING}, DEFAULT_USA_REWARD-3),
+            
+            build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(MOULD1_SERVICE_NAME_USA, MOULDING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
+            
+            build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_complex_breakable_service(DRYER1_SERVICE_NAME_USA, DRYING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, HIGH_DEFAULT_USA_REWARD),
+            
+            build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
+            build_generic_breakable_service(F_BAKE1_SERVICE_NAME_USA, FIRST_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-2),
+            
+            build_generic_service_one_state(ENAMEL1_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-1),
+            build_generic_service_one_state(ENAMEL2_SERVICE_NAME_USA, {ENAMELLING}, DEFAULT_USA_REWARD-2),
+            
+            build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            build_generic_breakable_service(PAINTER1_SERVICE_NAME_USA, PAINT, DEFAULT_BROKEN_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD-1),
+            
+            build_complex_breakable_service(S_BAK1_SERVICE_NAME_USA, SECOND_BAKING, DEFAULT_BROKEN_PROB, DEFAULT_UNEMPLOYABLE_PROB, DEFAULT_BROKEN_REWARD, DEFAULT_USA_REWARD),
+            
+            build_generic_service_one_state(SHIPPING1_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD),
+            build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-1),
+            build_generic_service_one_state(SHIPPING2_SERVICE_NAME_USA, {SHIPPING}, DEFAULT_USA_REWARD-2),
+        ]
     return all_services
 
 

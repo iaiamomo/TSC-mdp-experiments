@@ -1,0 +1,6 @@
+{
+    "mode": "ltlf",
+    "size": "large",
+    "gamma": 0.9,
+    "serialize": true
+}

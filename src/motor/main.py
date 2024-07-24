@@ -7,8 +7,8 @@ from stochastic_service_composition.declare_utils import *
 from stochastic_service_composition.composition_mdp import composition_mdp
 from stochastic_service_composition.composition_mdp import comp_mdp
 from mdp_dp_rl.algorithms.dp.dp_analytic import DPAnalytic
-from src.ceramic.utils import print_policy_data
-from src.ceramic.setup import *
+from src.motor.utils import print_policy_data
+from src.motor.setup import *
 import os
 import pickle
 

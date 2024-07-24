@@ -1,0 +1,12 @@
+Filename: /home/default/MDP-Planner-Chip-Production/src/motor/main.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    46    135.0 MiB    135.0 MiB           1   @profile(stream=open(fp_DPAnalytic, "w+"))
+    47                                         def execute_policy(mdp):
+    48    135.0 MiB      0.0 MiB           1       mdp.gamma = gamma
+    49    135.0 MiB      0.0 MiB           1       opn = DPAnalytic(mdp, 1e-4)
+    50    135.3 MiB      0.3 MiB           1       opt_policy = opn.get_optimal_policy_vi()
+    51    135.3 MiB      0.0 MiB           1       return opt_policy
+
+

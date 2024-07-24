@@ -56,7 +56,7 @@ def main():
         f.write(f"{to_write}\n")
     print(to_write)
 
-    all_services = process_services(mode, size)
+    all_services = process_services(size)
     target = target_service_automata() if mode == "automata" else target_service_ltlf()
 
     to_write = f"Tot_services: {len(all_services)}"

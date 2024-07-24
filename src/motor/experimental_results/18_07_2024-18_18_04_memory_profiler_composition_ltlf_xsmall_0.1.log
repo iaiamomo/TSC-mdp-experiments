@@ -1,0 +1,10 @@
+Filename: /home/default/MDP-Planner-Chip-Production/src/motor/main.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    40    127.2 MiB    127.2 MiB           1   @profile(stream=open(fp_compMDP, "w+"))
+    41                                         def execute_composition_ltlf(declare_automaton, services):
+    42    133.9 MiB      6.7 MiB           1       mdp = comp_mdp(declare_automaton, services, gamma=gamma)
+    43    133.9 MiB      0.0 MiB           1       return mdp
+
+

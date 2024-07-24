@@ -1,0 +1,8 @@
+Mode: ltlf
+Size: medium
+Gamma: 0.9
+Serialize: True
+Tot_services: 16
+MDP states: 16227
+Composition elapsed time: 0 s
+Policy elapsed time: 37.082385348 s
