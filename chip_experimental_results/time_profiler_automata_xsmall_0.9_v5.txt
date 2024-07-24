@@ -1,9 +1,0 @@
-Mode: automata
-Size: small
-Gamma: 0.9
-Serialize: True
-Version: v5
-Tot_services: 14
-MDP states: 29
-Composition elapsed time: 0 s
-Policy elapsed time: 0.139431463 s
