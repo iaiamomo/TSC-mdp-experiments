@@ -1,16 +1,19 @@
-# Industrial API composition via Policy-based techiques - Chip Supply Chain Case Study
+# Orchestration of services in Smart Manufacturing through automated synthesis - Stochastic policy approaches
 
-Implementation of a tool to compose Industral API of the manufacturing actorsvia Markov Decision Processes.
+Repository containing the case studies and the experimental results of the stochastic policy approaches (target automata and LTLf) for the paper "Orchestration of services in Smart Manufacturing through automated synthesis".
 
-Results of the experiments can be found in [chip_experimental_results](chip_experimental_results). Some results referring to the computation of the composition MDP can be null as we serialize the MDP in a pickle file so we do not have to recompute it each time.
+## Chip
 
-Graphical representations of the target and the composition MDP (`xsmall` size) can be found in [debug](docs/notebooks/debug.ipynb) notebook.
+## Ceramic
 
-## How to replicate the experiments
-The experiments can be replicated either using Docker or from source code. We suggest to use Docker.
+## Motor
+
+## Experiments
+
+The experiments can be replicated using Docker.
 
 #### Configuration file
-The configuration file [config.json](docs/notebooks/config.json) containing basic information needed to run the experiments. An example with information of the key-value pairs is given below.
+The configuration file  `config.json` in each case study folder, contains basic information needed to run the experiments. An example with information of the key-value pairs is given below.
 ```json
 {
     "mode": "automata",   //type of the target, accepted values are ["automata", "ltlf"]
@@ -41,37 +44,3 @@ The configuration file [config.json](docs/notebooks/config.json) containing basi
   ```
 
 **Please note:** the configuration file conf.json contains the basic information needed to run the experiments. The JSON key ``mode`` accept the values ``[automata, ltlf]``, the key ``phase`` accepts ``[1,2]`` values (representing the assortment and manufacturing phases respectively), and the key ``size`` accepts ``[small, manageable1, manageable2, complex]`` values (related to the number of involved actors).
-
-### From the source code
-
-We assume the review uses a UNIX-like machine and that has Python 3.8 installed.
-
-- Set up the virtual environment. 
-First, install [Pipenv](https://pipenv-fork.readthedocs.io/en/latest/).
-Then:
-  ```sh
-  pipenv install --dev
-  ```
-                    
-- this command is to start a shell within the Python virtual environment (to be done whenever a new terminal is opened):
-  ```sh
-  pipenv shell
-  ```
-
-- Install the Python package in development mode:
-  ```sh
-  pip install -e .
-  # alternatively:
-  # python setup.py develop 
-  ```
-
-- To use rendering functionalities, you will also need to install Graphviz. 
-  At [this page](https://www.graphviz.org/download/) you will
-  find the releases for all the supported platform.
-
-- Run the Controller
-  ```sh
-  cd docs/notebook
-  python main.py
-  ```
-
