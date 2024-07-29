@@ -99,9 +99,11 @@ if __name__ == "__main__":
 
         plt.figure(f"Policy computation time - LTLf - {case_study}")
         plt.title('Policy computation time - LTLf')
+        colors = ['tab:orange', 'tab:purple', 'tab:cyan', 'tab:brown']
+        line_styles = [(5, (10, 3)), (0, (5, 10)), (0, (5, 1)), 'dashdot']
         for gamma in time_pol_ltlf.keys():
             y_values = time_pol_ltlf[gamma]
-            plt.plot(services['ltlf'], y_values, '-o', label=gamma)
+            plt.plot(services['ltlf'], y_values, '-o', label=f'λ={gamma}', color=colors.pop(0), linestyle=line_styles.pop(0))
         plt.xticks(services['ltlf'])
         plt.xlabel('Number of services')
         plt.ylabel('Time (s)')
