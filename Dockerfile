@@ -80,7 +80,10 @@ RUN wget https://github.com/whitemech/lydia/releases/download/v0.1.3/lydia &&\
     sudo cp lydia /usr/local/bin/lydia &&\
     sudo chown default:default /usr/local/bin/lydia
 
+RUN git clone https://github.com/iaiamomo/TSC-mdp-experiments.git &&\
+    cd TSC-mdp-experiments &&\
+    sudo pip install -e .
 
 EXPOSE 8888
 
-WORKDIR /home/default/
+WORKDIR /home/default/TSC-mdp-experiments
