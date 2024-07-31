@@ -8,3 +8,6 @@ nohup.out
 *.dot
 *.svg
 extract_lines.py
+.jupyter
+.ipython
+.local

@@ -1,20 +1,11 @@
 Metadata-Version: 2.1
-Name: stochastic_service_composition
+Name: stochastic-service-composition
 Version: 0.1.0
 Summary: Implementation of stochastic service composition.
+Home-page: UNKNOWN
 License: MIT
+Platform: UNKNOWN
 License-File: LICENSE
-Requires-Dist: numpy
-Requires-Dist: graphviz
-Requires-Dist: websockets
-Requires-Dist: paho-mqtt
-Requires-Dist: requests
-Requires-Dist: connexion[swagger-ui]
-Requires-Dist: logaut
-Requires-Dist: pythomata
-Requires-Dist: flask
-Requires-Dist: aiohttp
-Requires-Dist: aiohttp_jinja2
-Requires-Dist: mdp_dp_rl@ git+https://github.com/luusi/mdp-dp-rl.git#egg=mdp_dp_rl
-Requires-Dist: memory-profiler
-Requires-Dist: tqdm
+
+UNKNOWN
+

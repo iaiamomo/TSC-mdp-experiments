@@ -12,7 +12,8 @@ from mdp_dp_rl.processes.mdp import MDP
 from mdp_dp_rl.processes.policy import Policy
 from mdp_dp_rl.utils.standard_typevars import VFDictType, QFDictType
 
-from stochastic_service_composition.rendering import service_to_graphviz, target_to_graphviz, mdp_to_graphviz
+from stochastic_service_composition.dfa_target import MdpDfa
+from stochastic_service_composition.rendering import service_to_graphviz, target_to_graphviz, mdp_to_graphviz, mdp_to_graphviz2
 from stochastic_service_composition.services import Service
 from stochastic_service_composition.target import Target
 
@@ -20,7 +21,7 @@ _image_classes = {
     "png": Image,
     "svg": SVG
 }
-_default_format = "png"
+_default_format = "svg"
 
 
 def display_svgs(*filenames, format: str="png"):
@@ -42,10 +43,18 @@ def render_target(target: Target, format=_default_format):
     render_digraph(digraph, format)
 
 
-def render_composition_mdp(mdp: MDP, format=_default_format):
-    digraph = mdp_to_graphviz(mdp)
+def render_mdp_dfa(mdp: MdpDfa, format=_default_format, **kwargs):
+    digraph = mdp_to_graphviz(mdp, **kwargs)
     render_digraph(digraph)
 
+
+def render_composition_mdp(mdp: MDP, format=_default_format):
+    digraph = mdp_to_graphviz2(mdp)
+    render_digraph(digraph)
+
+def render_comp_mdp(mdp: MDP, format=_default_format, **kwargs):
+    digraph = mdp_to_graphviz(mdp, **kwargs)
+    render_digraph(digraph)
 
 def render_digraph(digraph: Digraph, format=_default_format):
     tmp_dir = tempfile.mkdtemp()
@@ -63,23 +72,29 @@ def print_policy_data(policy: Policy):
 
 
 @print_policy_data.register(DetPolicy)
-def print_policy_data(policy: DetPolicy):
-    print("Policy:")
-    for state, action_probs in sorted(policy.policy_data.items()):
-        unique_action = list(action_probs)[0]
-        print(f"State={state},\tAction={unique_action}")
+def print_policy_data(policy: DetPolicy, file_name = None):
+    if file_name is None:
+        for state, action in policy.policy_data.items():
+            print(f"State={state},\tAction={action}")
+    else:
+        with open(file_name, "a") as f:
+            f.write("Policy:")
+            for state, action_probs in policy.policy_data.items():
+                unique_action = list(action_probs)[0]
+                f.write(f"State={state},\tAction={unique_action}\n")
+    return
 
 
 def print_value_function(value_function: VFDictType):
     print("Value function:")
-    for state, value in sorted(value_function.items()):
+    for state, value in value_function.items():
         print(f"State={state},\tvalue={value}")
 
 
 def print_q_value_function(q_value_function: QFDictType):
     print("Q-value function:")
-    for state, action_value in sorted(q_value_function.items()):
+    for state, action_value in q_value_function.items():
         print(f"State={state}:")
-        for action, value in sorted(action_value.items()):
+        for action, value in action_value.items():
             print(f"\tAction={action},\tValue={value}")
         print()
