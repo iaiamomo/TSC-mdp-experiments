@@ -29,9 +29,9 @@ The experiments can be replicated using Docker.
   ```
 
 5. When the controller finishes its execution, it produces three log files (for each run) in the `experimental_results` folder for each case study. These files represent:
-- \<timestamp\>\_memory_profiler_composition_\<mode\>\_\<size\>\_\<gamma\>: contains the memory consumption of the composition computation
-- \<timestamp\>\_memory_profiler_policy\_\<mode\>\_\<size\>\_\<gamma\>: contains the memory consumption of the policy computation
-- \<timestamp\>\_time_profiler_\<mode\>\_\<size\>\_\<gamma\>: contains the execution time of the script
+- `<timestamp>_memory_profiler_composition_<mode>_<size>_<gamma>`: contains the memory consumption of the composition computation
+- `<timestamp>_memory_profiler_policy_<mode>_<size>_<gamma>`: contains the memory consumption of the policy computation
+- `<timestamp>_time_profiler_<mode>_<size>_<gamma>`: contains the execution time of the script
 
 #### Configuration file
 The configuration file  `config.json` in each case study folder, contains basic information needed to run the experiments. 
@@ -50,7 +50,10 @@ An example with information of the key-value pairs is given below.
 
 ## Evaluation Results
 
-Evaluation results of the experiments can be found in [src/eval_utils](src/eval_utils/). [experimental_results.csv](src/eval_utils/experimental_results.csv) contains the aggregated results of the memory and time consumption for the three case studies.
+Evaluation results of the experiments can be found in [src/eval_utils](src/eval_utils/). The [experimental_results.csv](src/eval_utils/experimental_results.csv) file contains the aggregated results of the memory and time consumption for the three case studies.
+
+**Comulative results (including also plannin-based approach) are available [here](https://github.com/iaiamomo/TSC-planning-experiments).**
+
 
 ### Chip case study
 
