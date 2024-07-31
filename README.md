@@ -1,6 +1,6 @@
-# Orchestration of services in Smart Manufacturing through automated synthesis - Stochastic policy approaches
+# Orchestration of services in Smart Manufacturing through automated synthesis - Stochastic policy-based approaches
 
-Repository containing the case studies and the experimental results of the stochastic policy approaches (target automata and LTLf) for the paper "Orchestration of services in Smart Manufacturing through automated synthesis".
+Repository containing the case studies and the experimental results of the stochastic policy-based approaches (target automata and LTLf) for the paper "Orchestration of services in Smart Manufacturing through automated synthesis".
 
 ## Experiments
 
@@ -52,7 +52,7 @@ An example with information of the key-value pairs is given below.
 
 Evaluation results of the experiments can be found in [src/eval_utils](src/eval_utils/). The [experimental_results.csv](src/eval_utils/experimental_results.csv) file contains the aggregated results of the memory and time consumption for the three case studies.
 
-**Comulative results (including also plannin-based approach) are available [here](https://github.com/iaiamomo/TSC-planning-experiments).**
+**Comulative results (including also instance plannin-based approach) are available [here](https://github.com/iaiamomo/TSC-planning-experiments).**
 
 
 ### Chip case study
