@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
         color = 'tab:red'
         ax1 = fig.add_subplot(111)
-        ax1.set_title('Memory usage')
+        ax1.set_title(f'Memory usage - {case_study}')
         lns1 = ax1.plot(services['automata'], mems['automata'], '-o', color=color, label='Automata')
         ax1.set_xticks(services['automata'])
         ax1.set_xlabel('Number of services')
@@ -86,7 +86,7 @@ if __name__ == "__main__":
         tot_time_ltlf = [sum(x) for x in zip(time_comp_ltlf, time_pol_ltlf[0.9])]
 
         plt.figure(f"Solution computation time - {case_study}")
-        plt.title('Stochastic policy approaches - Time consumption')
+        plt.title(f'Stochastic policy approaches - Time consumption - {case_study}')
         plt.plot(services['automata'], tot_time_automata, '-o', label='Automa (λ=0.9)')
         plt.plot(services['ltlf'], tot_time_ltlf, '-o', label='LTLf (λ=0.9)')
         plt.xticks(services['automata'])
@@ -98,7 +98,7 @@ if __name__ == "__main__":
         plt.show(block=False)
 
         plt.figure(f"Policy computation time - LTLf - {case_study}")
-        plt.title('Policy computation time - LTLf')
+        plt.title(f'Policy computation time - LTLf - {case_study}')
         colors = ['tab:orange', 'tab:purple', 'tab:cyan', 'tab:brown']
         line_styles = [(5, (10, 3)), (0, (5, 10)), (0, (5, 1)), 'dashdot']
         for gamma in time_pol_ltlf.keys():
