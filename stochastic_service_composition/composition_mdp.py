@@ -121,6 +121,126 @@ def composition_mdp(
 
     return MDP(transition_function, gamma)
 
+def comp_mdp2(
+    dfa: SimpleDFA, services: Service, gamma: float = DEFAULT_GAMMA
+) -> MDP:
+    """
+    Compute the composition MDP.
+    :param target: the target service.
+    :param services: the community of services.
+    :param gamma: the discount factor.
+    :return: the composition MDP.
+    """
+    dfa = dfa.trim()
+    system_service = build_system_service(*services)
+
+    transition_function: MDPDynamics = {}
+
+    visited = set()
+    to_be_visited = set()
+    queue: Deque = deque()
+
+    # add initial transitions
+    initial_state = (system_service.initial_state, dfa.initial_state)
+    queue.append(initial_state)
+    to_be_visited.add(initial_state)
+    for system_service_state in system_service.states:
+        if system_service_state == system_service.initial_state:
+            continue
+        new_initial_state = (system_service_state, dfa.initial_state)
+        queue.append(new_initial_state)
+        to_be_visited.add(new_initial_state)
+
+    mdp_sink_state_used = False
+    while len(queue) > 0:
+        cur_state = queue.popleft()
+        to_be_visited.remove(cur_state)
+        visited.add(cur_state)
+        cur_system_state, cur_dfa_state = cur_state
+        trans_dist = {}
+
+        next_system_state_trans = system_service.transition_function[
+            cur_system_state
+        ].items()
+
+        # iterate over all available actions of system service
+        # in case symbol is in DFA available actions, progress DFA state component
+        for (symbol, service_id), next_state_info in next_system_state_trans:
+            next_system_state_distr, reward_vector = next_state_info
+            system_reward = reward_vector
+
+            # if symbol is a tau action, next dfa state remains the same
+            if symbol not in dfa.alphabet:
+                next_dfa_state = cur_dfa_state
+                goal_reward = 0.0
+            # if there are no outgoing transitions from DFA state:
+            elif cur_dfa_state not in dfa.transition_function:
+                mdp_sink_state_used = True
+                trans_dist[COMPOSITION_MDP_UNDEFINED_ACTION] = ({COMPOSITION_MDP_SINK_STATE: 1}, 0.0)
+                continue
+            # symbols not in the transition function of the target
+            # are considered as "other"; however, when we add the
+            # MDP transition, we will label it with the original
+            # symbol.
+            elif symbol in dfa.transition_function[cur_dfa_state]:
+                symbol_to_next_dfa_states = dfa.transition_function[cur_dfa_state]
+                next_dfa_state = symbol_to_next_dfa_states[symbol]
+                goal_reward = 1.0 if dfa.is_accepting(next_dfa_state) else 0.0
+            else:
+                # if invalid target action, skip
+                continue
+            final_rewards = (goal_reward + system_reward)
+
+            for next_system_state, prob in next_system_state_distr.items():
+                assert prob > 0.0
+                next_state = (next_system_state, next_dfa_state)
+                trans_dist.setdefault((symbol, service_id), ({}, final_rewards))[0][
+                    next_state
+                ] = prob
+                if next_state not in visited and next_state not in to_be_visited:
+                    queue.append(next_state)
+                    to_be_visited.add(next_state)
+
+        transition_function[cur_state] = trans_dist
+
+    if mdp_sink_state_used:
+        transition_function[COMPOSITION_MDP_SINK_STATE] = {COMPOSITION_MDP_UNDEFINED_ACTION: ({COMPOSITION_MDP_SINK_STATE: 1.0}, 0.0)}
+    
+
+    # check if the MDP is valid
+    epsilon = 1e-8
+    def is_approx_eq(a: float, b: float) -> bool:
+        return abs(a - b) <= epsilon
+
+    mdp_data = transition_function
+    all_st = set(mdp_data.keys())
+
+    for info, v in mdp_data.items():
+        if len(v) <= 0:
+            print(info)
+            print(v)
+
+    check_actions = all(len(v) > 0 for _, v in mdp_data.items())
+    val_seq = [v2 for _, v1 in mdp_data.items() for _, (v2, _) in v1.items()]
+    
+    states = all_st
+    tr_seq = val_seq
+    b1 = set().union(*tr_seq).issubset(states)
+    b2 = all(all(x >= 0 for x in d.values()) for d in tr_seq)
+    b3 = all(is_approx_eq(sum(d.values()), 1.0) for d in tr_seq)
+
+    print(f"b1: {b1}, b2: {b2}, b3: {b3}")
+
+    print(f"check_actions: {check_actions}")
+
+    print((b1 and b2 and b3) and check_actions)
+
+
+
+    result = MDP(transition_function, gamma)
+    result.initial_state = initial_state
+    return result
+
 
 def comp_mdp(
     dfa: SimpleDFA, services: Service, gamma: float = DEFAULT_GAMMA
@@ -169,9 +289,13 @@ def comp_mdp(
     target_action_to_service_id = {}
     for service_id, supported_actions in service_id_to_target_action.items():
         # controllo che l'attore può fare solo un'azione
-        assert len(supported_actions) == 1
-        supported_action = list(supported_actions)[0]
-        target_action_to_service_id.setdefault(supported_action, set()).add(service_id)
+        #assert len(supported_actions) == 1
+        #supported_action = list(supported_actions)[0]
+        #target_action_to_service_id.setdefault(supported_action, set()).add(service_id)
+        
+        for supported_action in supported_actions:
+            target_action_to_service_id.setdefault(supported_action, set()).add(service_id)
+    print(target_action_to_service_id)
 
     mdp_sink_state_used = False
     # per ogni stato che devo visitare
@@ -250,6 +374,40 @@ def comp_mdp(
 
     if mdp_sink_state_used:
         transition_function[COMPOSITION_MDP_SINK_STATE] = {COMPOSITION_MDP_UNDEFINED_ACTION: ({COMPOSITION_MDP_SINK_STATE: 1.0}, 0.0)}
+
+    print(transition_function)
+
+    
+    # check if the MDP is valid
+    epsilon = 1e-8
+    def is_approx_eq(a: float, b: float) -> bool:
+        return abs(a - b) <= epsilon
+
+    mdp_data = transition_function
+    all_st = set(mdp_data.keys())
+
+    for info, v in mdp_data.items():
+        print("info", info, "value", v)
+
+        if len(v) <= 0:
+            print("NOOOOOO")
+            print(info)
+            print(v)
+
+    check_actions = all(len(v) > 0 for _, v in mdp_data.items())
+    val_seq = [v2 for _, v1 in mdp_data.items() for _, (v2, _) in v1.items()]
+    
+    states = all_st
+    tr_seq = val_seq
+    b1 = set().union(*tr_seq).issubset(states)
+    b2 = all(all(x >= 0 for x in d.values()) for d in tr_seq)
+    b3 = all(is_approx_eq(sum(d.values()), 1.0) for d in tr_seq)
+
+    print(f"b1: {b1}, b2: {b2}, b3: {b3}")
+
+    print(f"check_actions: {check_actions}")
+
+    print((b1 and b2 and b3) and check_actions)
 
     result = MDP(transition_function, gamma)
     result.initial_state = initial_state
